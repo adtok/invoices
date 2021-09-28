@@ -1,4 +1,7 @@
-from invoices.reporter import almost_equal, Invoice, Reporter
+"""Testing for the invoices.reporter"""
+from utils import almost_equal
+
+from invoices.reporter import Invoice, Reporter
 
 
 def test_reporter():
