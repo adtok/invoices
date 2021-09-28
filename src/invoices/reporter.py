@@ -35,7 +35,7 @@ class Reporter:
     """A class that provides a report of all invoices."""
 
     reporter_id: int
-    invoices: dict[int, Invoice] = field(default_factory=dict)
+    invoices: Dict[int, Invoice] = field(default_factory=dict)
 
     def create_invoice(self, invoice: Invoice) -> None:
         """Adds an invoice to to the reporter"""
