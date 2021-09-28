@@ -22,6 +22,7 @@ def test_reporter():
 
 
 def test_no_duplicate_invoices():
+    """Test no duplicate invoice_id in invoices"""
     reporter = Reporter(0)
     reporter.create_invoice(Invoice(0, 10.0))
     with pytest.raises(ValueError):
