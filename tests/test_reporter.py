@@ -1,5 +1,5 @@
 """Testing for the invoices.reporter"""
-from utils import almost_equal
+from .utils import almost_equal
 
 from invoices.reporter import Invoice, Reporter
 
