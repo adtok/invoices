@@ -1,27 +1,13 @@
-"""Testing for the invoices.reporter"""
+"""Testing for the Reporter class"""
 from .utils import almost_equal
 
 from invoices.reporter import Invoice, Reporter
 
+import pytest
+
 
 def test_reporter():
-    """Run tests for almost_equal, the Invoice class, and the Reporter class"""
-    # test almost_equal
-    assert almost_equal(10.0, 10.0005)
-    assert not almost_equal(10.0, 10.1)
-    assert almost_equal(10.0, 10.01, precision=0.1)
-
-    # test the invoice dataclass
-    invoice = Invoice(0, 10.0)
-    assert not invoice.paid
-    invoice.pay()
-    assert invoice.paid
-
-    invoice = Invoice(1, 10.0, 10.0)
-    assert almost_equal(invoice.discount_value, 1.0)
-    assert almost_equal(invoice.net_price, 9.0)
-
-    # test the reporter dataclass
+    """Basic tests for the Reporter class"""
     reporter = Reporter(0)
     reporter.create_invoice(Invoice(0, 10.0))
     reporter.create_invoice(Invoice(1, 20.0))
@@ -33,3 +19,31 @@ def test_reporter():
     reporter.create_invoice(Invoice(2, 100.0, 10.0))
     assert almost_equal(reporter.funds_owed, 110.0)
     assert almost_equal(reporter.funds_paid, 10.0)
+
+
+def test_no_duplicate_invoices():
+    reporter = Reporter(0)
+    reporter.create_invoice(Invoice(0, 10.0))
+    with pytest.raises(ValueError):
+        reporter.create_invoice(Invoice(0, 0.0))
+
+
+def test_to_dict():
+    """Tests Reporter.to_dict()"""
+    reporter = Reporter(0)
+    reporter.create_invoice(Invoice(0, 10.0))
+    reporter.pay_invoice(0)
+    reporter_dict = {
+        "reporter_id": 0,
+        "invoices": {
+            0: {
+                "invoice_id": 0,
+                "price": 10.0,
+                "discount": 0.0,
+                "paid": True,
+                "discount_value": 0.0,
+                "net_price": 10.0,
+            }
+        },
+    }
+    assert reporter.to_dict() == reporter_dict

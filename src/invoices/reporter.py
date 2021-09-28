@@ -63,4 +63,9 @@ class Reporter:
 
     def to_dict(self) -> dict[str, Union[int, dict[int, Invoice]]]:
         """Returns a dictionary representation of the reporter object"""
-        return asdict(self)
+        reporter_dict = asdict(self)
+        reporter_dict["invoices"] = {
+            invoice_id: self.invoices[invoice_id].to_dict()
+            for invoice_id in self.invoices
+        }
+        return reporter_dict
