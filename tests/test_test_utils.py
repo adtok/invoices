@@ -2,6 +2,7 @@
 
 from .utils import almost_equal
 
+
 def test_almost_equal():
     """Tests almost_equal"""
     assert almost_equal(10.0, 10.0005)

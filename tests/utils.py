@@ -1,5 +1,6 @@
 """Utilities for testing"""
 
+
 def almost_equal(float1: float, float2: float, precision: float = 0.001) -> bool:
     """
     Returns if the difference between two floats is within a certain precision.
