@@ -1,7 +1,7 @@
 """A simple invoice reporting system"""
 
 from dataclasses import dataclass, field, asdict
-from typing import Union
+from typing import Union, Dict
 
 
 @dataclass
@@ -25,7 +25,7 @@ class Invoice:
         """Marks the invoice as paid"""
         self.paid = True
 
-    def to_dict(self) -> dict[str, Union[int, float, bool]]:
+    def to_dict(self) -> Dict[str, Union[int, float, bool]]:
         """Returns the object as a dictionary"""
         return asdict(self)
 
@@ -61,7 +61,7 @@ class Reporter:
             invoice.net_price for invoice in self.invoices.values() if not invoice.paid
         )
 
-    def to_dict(self) -> dict[str, Union[int, dict[int, Invoice]]]:
+    def to_dict(self) -> Dict[str, Union[int, Dict[int, Invoice]]]:
         """Returns a dictionary representation of the reporter object"""
         reporter_dict = asdict(self)
         reporter_dict["invoices"] = {
