@@ -12,4 +12,3 @@ A repository to learn about python packages and GitHub Actions.
 ![Tests](https://github.com/adtok/invoices/actions/workflows/tests.yml/badge.svg)
 
 TEST CHANGE
-Another CHANGE
